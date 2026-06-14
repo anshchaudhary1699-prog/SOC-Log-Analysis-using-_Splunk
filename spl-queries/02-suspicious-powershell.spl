@@ -1,0 +1,33 @@
+Search 1: All Process Events
+
+source="_time,event_type,EventCode,host,use.txt" sourcetype="csv" event_type=process
+| table _time, EventCode, host, user, process, parent_process, command, severity, description
+| sort _time
+
+
+Search 2: PowerShell Execution
+
+source="_time,event_type,EventCode,host,use.txt" sourcetype="csv" process="powershell.exe"
+| table _time, host, user, process, parent_process, command, severity, description
+| sort _time
+
+
+Search 3: Encoded PowerShell Command
+
+source="_time,event_type,EventCode,host,use.txt" sourcetype="csv" command="*-enc*"
+| table _time, host, user, process, parent_process, command, severity, description
+| sort _time
+
+
+Search 4: PowerShell Network Connection
+
+source="_time,event_type,EventCode,host,use.txt" sourcetype="csv" process="powershell.exe" event_type=network
+| table _time, host, user, process, dest_ip, severity, description
+| sort _time
+
+
+Search 5: Full PowerShell Investigation Timeline
+
+source="_time,event_type,EventCode,host,use.txt" sourcetype="csv" user="employee1"
+| table _time, event_type, EventCode, user, process, parent_process, command, dest_ip, severity, description
+| sort _time

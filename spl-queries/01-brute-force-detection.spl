@@ -1,0 +1,12 @@
+Search 1: Failed Login Count
+
+source="_time,event_type,EventCode,host,use.txt" sourcetype="csv" EventCode=4625
+| stats count as failed_attempts by user, src_ip, host
+| sort -failed_attempts
+
+
+Search 2: Failed and Successful Login Timeline
+
+source="_time,event_type,EventCode,host,use.txt" sourcetype="csv" (EventCode=4625 OR EventCode=4624)
+| table _time, EventCode, host, user, src_ip, severity, description
+| sort _time
